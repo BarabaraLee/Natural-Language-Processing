@@ -116,8 +116,8 @@ for name, clf in zip(names, classifiers):
 
 '''
 Training Data vs Testing Data: 5 vs 1 
-Class 1: Email requests with topic of 'sci.crypt'
-Class 2: Email requests with topic of 'sci.crypt'
+Class 1: Email requests with the topic of 'sci.crypt'
+Class 2: Email requests with the topic of 'sci.crypt'
 
 Test results:
 Score with Nearest Neighbors = 0.852130325815
