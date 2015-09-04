@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+'''
+Author: Linjun Li
+Data is drawn from '20 Newsgroups', I chose only 2 group for classification.
+Training Data vs Testing Data: 5 vs 1 
+Class 1: Email requests (Internet news) with the topic of 'sci.crypt'
+Class 2: Email requests (Internet news) with the topic of 'sci.electronics'
+The following algorithm also works when there are more than two classes.
+'''
 from random import shuffle
 from nltk.tokenize import RegexpTokenizer
 import os
@@ -115,10 +123,6 @@ for name, clf in zip(names, classifiers):
     print 'Score with '+name+' =',clf.score(X_test, y_test)
 
 '''
-Training Data vs Testing Data: 5 vs 1 
-Class 1: Email requests with the topic of 'sci.crypt'
-Class 2: Email requests with the topic of 'sci.electronics'
-
 Test results:
 Score with Nearest Neighbors = 0.852130325815
 Score with Linear SVM = 0.937343358396
