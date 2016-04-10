@@ -1,0 +1,31 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf130
+{\fonttbl\f0\fnil\fcharset0 SourceCodePro-Regular;}
+{\colortbl;\red255\green255\blue255;\red242\green242\blue242;}
+\margl1440\margr1440\vieww20420\viewh10080\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf2 \cb0 \CocoaLigature0 Welcome to\
+      ____              __\
+     / __/__  ___ _____/ /__\
+    _\\ \\/ _ \\/ _ `/ __/  '_/\
+   /__ / .__/\\_,_/_/ /_/\\_\\   version 1.5.0-cdh5.5.0\
+      /_/\
+\
+Using Python version 2.6.6 (r266:84292, Feb 22 2013 00:00:18)\
+SparkContext available as sc, HiveContext available as sqlContext.\
+>>> wordcounts1 = sc.textFile('hdfs://quickstart.cloudera:8020/user/cloudera/shakespeare').map( lambda x: x.replace(',',' ').replace('.',' ').replace('-',' ').lower()).flatMap(lambda x: x.split()).map(lambda x: (x, 1)).reduceByKey(lambda x,y:x+y).map(lambda x:(x[1],x[0])).sortByKey(False)\
+>>> wordcounts1.take(10)\
+[(27572, u'the'), (26752, u'and'), (20191, u'i'), (19338, u'to'), (18135, u'of'), (14520, u'a'), (12991, u'you'), (12468, u'my'), (10964, u'that'), (10914, u'in')]\
+\
+>>> lines = sc.parallelize(['Its fun to have fun,','but you have to know how.'])\
+>>> wordcounts3=lines.map( lambda x: x.replace(',',' ').replace('.',' ').replace('-',' ').lower()).flatMap(lambda x: x.split()).map(lambda x: (x, 1)).reduceByKey(lambda x,y:x+y).map(lambda x:(x[1],x[0])).sortByKey(False)\
+>>> wordcounts3.take(10)\
+[(2, 'fun'), (2, 'have'), (2, 'to'), (1, 'you'), (1, 'but'), (1, 'its'), (1, 'know'), (1, 'how')]\
+\
+>>> sentences=sc.textFile('hdfs://quickstart.cloudera:8020/user/cloudera/shakespeare').glom().map(lambda x:" ".join(x)).flatMap(lambda x: x.split("."))\
+>>> bigrams=sentences.map(lambda x:x.split()).flatMap(lambda x:[((x[i],x[i+1]),1) for i in range(0,len(x)-1)])\
+>>> freq_bigrams=bigrams.reduceByKey(lambda x,y:x+y).map(lambda x:(x[1],x[0])).sortByKey(False)\
+>>> freq_bigrams.take(10)\
+[(1766, (u'I', u'am')), (1557, (u'I', u'have')), (1542, (u'in', u'the')), (1481, (u'I', u'will')), (1436, (u'of', u'the')), (1299, (u'to', u'the')), (791, (u'to', u'be')), (748, (u'I', u'do')), (690, (u'and', u'the')), (681, (u'of', u'my'))]\
+\
+}
